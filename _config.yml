@@ -6,3 +6,5 @@ is_project_page: false
 repository_url:
 show_repository_url: false
 is_user_page: false
+plugins:
+  - jemoji

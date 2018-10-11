@@ -10,6 +10,6 @@ This is about me, yes, about me trying to see if I have the patience to write a 
 
 
 ### Stuff
-[Cognito Sign Up / Sign In](/cognito_sign_up_sign_in.html)
+[Cognito Sign Up / Sign In](cognito_sign_up_sign_in.md)
 
 

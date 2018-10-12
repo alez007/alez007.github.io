@@ -6,7 +6,7 @@ I'm always a student, a little bit of this, a little bit of that, can't hurt, ri
 
 ### What's this about ? 
 
-This is about me, yes, about me trying to see if I have the patience to write a blog. If you'll see last article date a year ago, you'll know I've failed (again), in which case you should probably search through the Failures section :innocent:.
+This is about me, yes, about me trying to see whether I have the patience to write a blog. If you'll see last article date a year ago, you'll know I've failed (again), in which case you should probably search through the Failures section :innocent:.
 
 
 ### Stuff

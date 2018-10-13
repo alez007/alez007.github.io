@@ -14,8 +14,8 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
 **Federated Identities** handles *authorization*. This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *SAML* and even a custom authentication provider. What this means is that another *authentication provider* will issue an access token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in return, provide access to AWS Services. 
 
 ### 'Nuf talk, let's play
-  ### What's the exercise ? 
-  Let's presume you've got a web app that already has a sign-up or sign-in process in place and you're thinking to decouple that part of your app and do the sign-up and sign-in via Cognito. It looks like this:
+### What's the exercise ? 
+Let's presume you've got a web app that already has a sign-up or sign-in process in place and you're thinking to decouple that part of your app and do the sign-up and sign-in via Cognito. It looks like this:
   
   ![Standalone Scenario](/static/img/scenario-standalone.png)
 

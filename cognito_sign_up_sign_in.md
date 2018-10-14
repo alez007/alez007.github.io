@@ -17,6 +17,10 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
 ##### What's the exercise ? 
 Let's presume you've got a web app that already has a sign-up or sign-in process in place and you're thinking to decouple that part of your app and do the sign-up and sign-in via Cognito. It looks like this:
   
-  ![Standalone Scenario](/static/img/scenario-standalone.png)
+  ![Standalone Scenario](/static/img/articles/cognito_sign_up_sign_in/scenario-standalone.png)
+  
+In the above scenario, we'll authenticate users with **User Pools** and once we have a successful authentication, we give them access to our existent app. This means that your existent app should answer the following question: `Is this user authenticated?`. If yes, allow them access, if not, do something else. 
+
+
 
   

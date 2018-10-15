@@ -22,11 +22,12 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
 
     - `Why the trouble?` Well, *user pools* can have multiple *app clients* and each _**App Client**_ can be configured with different access levels to that data. If you think of similarities with Facebook Developer Apps then you would be right. 
 
-    - When **User Pool** generates token upon a successful *authentication*, that `token` is actually `tokens` because it actually generates three of them and the information encoded inside these tokens is, in fact, controlled by the _**App Client**_\: 
+    - When **User Pool** generates token upon a successful *authentication*, that `token` is actually `tokens` because it actually generates three of them and the information encoded inside these tokens is, in fact, controlled by the _**App Client**_: 
     -
-      - \- ID Token will only contain user attributes the _**App Client**_ has access to
-      - \- Access Token will only contain information about the level of access the user is entitled to (think *authorization*)
-      - \- Refresh Token contains information about how to refresh the previous two tokens
+      -
+        - \- ID Token will only contain user attributes the _**App Client**_ has access to
+        - \- Access Token will only contain information about the level of access the user is entitled to (think *authorization*)
+        - \- Refresh Token contains information about how to refresh the previous two tokens
 
     - All three tokens are JWT tokens and if you feel like digging more about it, or even find out about libraries that can decode these tokens, feel free to read [this](https://openid.net/specs/openid-connect-core-1_0.html){:target="_blank"} and [this](https://openid.net/developers/jwt/){:target="_blank"}.
 

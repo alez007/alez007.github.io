@@ -45,8 +45,6 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
 
 
 ### Conclusion
-- This is only an introduction about the general workings of AWS Cognito and the next articles will, in fact, create some exercises and solve them. As time passes by and AWS launches certain parts of Cognito (like Analytics) in all available regions, this service will become more and more mature and staying on top of it might prove useful. 
-
-- For feedback, please contact me over email.
+This is only an introduction about the general workings of AWS Cognito and the next articles will, in fact, create some exercises and solve them. As time passes by and AWS launches certain parts of Cognito (like Analytics) in all available regions, this service will become more and more mature and staying on top of it might prove useful. 
 
   

@@ -42,5 +42,9 @@ What do we know about *authorization* ? Well, our app needs to *authorize* acces
 Every time you need direct access to an *AWS Service* you should think of **Federated Identities**.
 
 
+### Conclusion
+This is only an introduction about the general workings of AWS Cognito and the next articles will, in fact, create some exercises and solve them. As time passes by and AWS launches certain parts of Cognito (like Analytics) in all available regions, this service will become more and more mature and staying on top of it might prove useful. 
+
+For feedback, please contact me over email.
 
   

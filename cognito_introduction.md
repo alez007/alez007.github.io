@@ -11,10 +11,10 @@ What I mean is, if you sign in with your username and password, you *authenticat
 
 There are two main parts of Cognito, one is **User Pools**, the other is **Federated Identities**. 
 
-- **User Pools** handles *authentication*. {:class="no_style"}
+1. **User Pools** handles *authentication*.
 
-  - It supports pretty much everything you can think of, sign up, sign in with or without third party services (Facebook, Google, Amazon etc.), multi-factor authentication, message verification, analytics and it can be scaled with lambda triggers.   
-  - Any successful signin attempt with **User Pools** provides *tokens* that you can use either to gain access in your server side app, gain access to AWS API Gateway or exchange them for temporary *AWS Credentials* to gain access to *AWS Services*.
+- It supports pretty much everything you can think of, sign up, sign in with or without third party services (Facebook, Google, Amazon etc.), multi-factor authentication, message verification, analytics and it can be scaled with lambda triggers.   
+- Any successful signin attempt with **User Pools** provides *tokens* that you can use either to gain access in your server side app, gain access to AWS API Gateway or exchange them for temporary *AWS Credentials* to gain access to *AWS Services*.
 
 - One importand part of **User Pools** is the **App Client**. 
 
@@ -31,10 +31,10 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
 
   - All three tokens are JWT tokens and if you feel like digging more about it, or even find out about libraries that can decode these tokens, feel free to read [this](https://openid.net/specs/openid-connect-core-1_0.html){:target="_blank"} and [this](https://openid.net/developers/jwt/){:target="_blank"}.
 
-- **Federated Identities** handles *authorization* inside AWS. 
-  - This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
+2. **Federated Identities** handles *authorization* inside AWS. 
+- This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
 
-  - What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
+- What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
 
 - I think the best way to understand **Federated Identities** is consider an example. Let's presume we have a Dropbox like application that doesn't really care about keeping user information and uses Facebook Login to *authenticate* users then lets them upload files in S3. 
 

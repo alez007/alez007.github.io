@@ -11,7 +11,7 @@ What I mean is, if you sign in with your username and password, you *authenticat
 
 There are two main parts of Cognito, one is **User Pools**, the other is **Federated Identities**. 
 
-- **User Pools** handles *authentication*. 
+- **User Pools** handles *authentication*. {:class="no_style"}
 
   - It supports pretty much everything you can think of, sign up, sign in with or without third party services (Facebook, Google, Amazon etc.), multi-factor authentication, message verification, analytics and it can be scaled with lambda triggers.   
   - Any successful signin attempt with **User Pools** provides *tokens* that you can use either to gain access in your server side app, gain access to AWS API Gateway or exchange them for temporary *AWS Credentials* to gain access to *AWS Services*.

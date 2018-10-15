@@ -30,16 +30,16 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
     - All three tokens are JWT tokens and if you feel like digging more about it, or even find out about libraries that can decode these tokens, feel free to read [this](https://openid.net/specs/openid-connect-core-1_0.html){:target="_blank"} and [this](https://openid.net/developers/jwt/){:target="_blank"}.
 
 2. **Federated Identities** handles *authorization* inside AWS. 
-- This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
+  - This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
 
-- What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
+  - What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
 
-- I think the best way to understand **Federated Identities** is consider an example. Let's presume we have a Dropbox like application that doesn't really care about keeping user information and uses Facebook Login to *authenticate* users then lets them upload files in S3. 
+  - I think the best way to understand **Federated Identities** is consider an example. Let's presume we have a Dropbox like application that doesn't really care about keeping user information and uses Facebook Login to *authenticate* users then lets them upload files in S3. 
 
-  - So what do we know about *authentication* of this exercise ? It's a third party *authentication*, therefore no need to use AWS User Pools, the *authentication provider* in this case is Facebook.  
-  - What do we know about *authorization* ? Well, our app needs to *authorize* access to *AWS S3*, therefore an *AWS Service*. 
+    - So what do we know about *authentication* of this exercise ? It's a third party *authentication*, therefore no need to use AWS User Pools, the *authentication provider* in this case is Facebook.  
+    - What do we know about *authorization* ? Well, our app needs to *authorize* access to *AWS S3*, therefore an *AWS Service*. 
 
-- Every time you need direct access to an *AWS Service* you should think of **Federated Identities**.
+  - Every time you need direct access to an *AWS Service* you should think of **Federated Identities**.
 
 
 ### Conclusion

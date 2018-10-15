@@ -36,7 +36,7 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
   
     - What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
 
-    - I think the best way to understand **Federated Identities** is consider an example. Let's presume we have a Dropbox like application that doesn't really care about keeping user information and uses Facebook Login to *authenticate* users then lets them upload files in S3.  
+    - I think the best way to understand **Federated Identities** is consider an example. Let's presume we have a Dropbox like application that doesn't really care about keeping user information and uses Facebook Login to *authenticate* users then lets them upload files in S3.
     -
       - \- So what do we know about *authentication* of this exercise ? It's a third party *authentication*, therefore no need to use AWS User Pools, the *authentication provider* in this case is Facebook.  
       - \- What do we know about *authorization* ? Well, our app needs to *authorize* access to *AWS S3*, therefore an *AWS Service*. 

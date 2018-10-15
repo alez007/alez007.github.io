@@ -24,7 +24,7 @@ _**App Client**_ has predefined access rights to **User Pool** data, e.g. a list
 
 When **User Pool** generates token upon a successful *authentication*, that `token` is actually `tokens` because it actually generates three of them, one ID Token, one Access Token and one Refresh Token. The information encoded inside these tokens is, in fact, controlled by the _**App Client**_. ID Token will only contain user attributes the _**App Client**_ has access to, Access Token will only contain information about the level of access the user is entitled to (think *authorization*) and the Refresh Token contains information about how to refresh the previous two tokens.
 
-All three tokens are JWT tokens and if you feel like digging more about it, or even find out about libraries that can decode these tokens, feel free to read [this](https://openid.net/specs/openid-connect-core-1_0.html) and [this](https://openid.net/developers/jwt/).
+All three tokens are JWT tokens and if you feel like digging more about it, or even find out about libraries that can decode these tokens, feel free to read [this](https://openid.net/specs/openid-connect-core-1_0.html){:target="_blank"} and [this](https://openid.net/developers/jwt/){:target="_blank"}.
 
 #### Federated Identities
 ***

@@ -10,6 +10,6 @@ This is about me, yes, about me trying to see whether I have the patience to wri
 
 
 ### Stuff
-[Cognito Sign Up / Sign In](cognito_sign_up_sign_in.md)
+[AWS Cognito - Introduction](cognito_introduction.md)
 
 

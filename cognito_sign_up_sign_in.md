@@ -1,11 +1,13 @@
-## Cognito Sign Up / Sign In - Introduction
+## AWS Cognito - Introduction
 
-Main aim of this article is to exemplify a simple registration and login with AWS. We'll use Cognito, Lambda, API Gateway and DynamoDB. 
+Main aim of this article is to write about my understanding of AWS Cognito. Although this blog won't have comments section, I'm always reading my email so feel free to drop me one if you feel I've gone off the rails with this one.
 
 ### What is Cognito ? 
 It's an authentication and authorization service. What's the difference ? Well, *authentication* authenticates, *authorization* authorizes. 
 
 What I mean is, if you sign in with your username and password, you *authenticate* yourself into the system.This means the system agrees you are a valid identity, but not necessarily one that is *authorized* to access certain parts of it. *Authorization* is your permission to see or access certain parts of the system you're *authenticated* into.
+
+### How does Cognito work ? 
 
 There are two main parts of Cognito, one is **User Pools**, the other is **Federated Identities**. 
 
@@ -28,17 +30,17 @@ All three tokens are JWT tokens and if you feel like digging more about it, or e
 
 #### Federated Identities
 ***
-**Federated Identities** handles *authorization*. This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *SAML* and even a custom authentication provider. What this means is that another *authentication provider* will issue an access token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in return, provide access to *AWS Services*. 
+**Federated Identities** handles *authorization* inside AWS. This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
 
-### 'Nuf talk, let's play
-##### What's the exercise ? 
-Let's presume you've got a web app that already has a sign-up or sign-in process in place and you're thinking to decouple that part of your app and do the sign-up and sign-in via Cognito. Now, in this exercise, we don't really need access to any AWS services, do we, therefore it's safe to assume that we'll only use one part of Cognito, meaning only **User Pools**. The scenario looks like this:
-  
-  ![Standalone Scenario](/static/img/articles/cognito_sign_up_sign_in/scenario-standalone.png)
-  
-In the above scenario, we'll authenticate users with **User Pools** and once we have a successful authentication, we give them access to our existent app. This means that your existent app should answer the following question: `Is this user authenticated?`. If yes, allow them access, if not, do something else. 
+What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
 
-##### Set Up
-First, we'll need an AWS account. If you don't have one yet, go to [AWS Console](https://aws.amazon.com/console/). 
+I think the best way to understand **Federated Identities** is consider an example. Let's presume we have a Dropbox like application that doesn't really care about keeping user information and uses Facebook Login to *authenticate* users then lets them upload files in S3. 
+
+So what do we know about *authentication* of this exercise ? It's a third party *authentication*, therefore no need to use AWS User Pools, the *authentication provider* in this case is Facebook.  
+What do we know about *authorization* ? Well, our app needs to *authorize* access to *AWS S3*, therefore an *AWS Service*. 
+
+Every time you need direct access to an *AWS Service* you should think of **Federated Identities**.
+
+
 
   

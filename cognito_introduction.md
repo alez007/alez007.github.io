@@ -30,8 +30,9 @@ There are two main parts of Cognito, one is **User Pools**, the other is **Feder
 
     - All three tokens are JWT tokens and if you feel like digging more about it, or even find out about libraries that can decode these tokens, feel free to read [this](https://openid.net/specs/openid-connect-core-1_0.html){:target="_blank"} and [this](https://openid.net/developers/jwt/){:target="_blank"}.
 
-2. **Federated Identities** handles *authorization* inside AWS. 
-  - This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
+2. ###### **Federated Identities**
+- 
+  - **Federated Identities** handles *authorization* inside AWS. This component stores identity data in *identity pools* and doesn't support *authentication*, therefore it relies on separate *authentication providers* that can be anything from an already created **User Pool** to *Facebook*, *Google+*(until Google closes it down that is :scream:) or *SAML* and even a custom authentication provider. 
 
   - What this means is that another *authentication provider* will issue a token, like **User Pools** for example, then **Federated Identities** consumes that token and exchanges it with *AWS Credentials* which, in turn, provide access to *AWS Services*. 
 

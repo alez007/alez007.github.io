@@ -84,3 +84,4 @@ In theory we only need the first part for this exercise but it still worth showi
 The schema looks like this:
 
 ![](assets/img/decouple_sign_up_with_cognito/2.png)
+

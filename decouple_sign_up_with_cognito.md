@@ -75,3 +75,12 @@ Finally, let's test if everything works correctly by running:
 You should see something like this:
 
 ![](assets/img/decouple_sign_up_with_cognito/1.png)
+
+### Prepare the Server
+The server has two main parts. One User Pool with its attached Client App and one Federated Identity with two roles attached, one for unauthenticated users(guests) and one for authenticated users.
+
+In theory we only need the first part for this exercise but it still worth showing how Federated Identities work and how can be used to authorize users to AWS services. 
+
+The schema looks like this:
+
+![](assets/img/decouple_sign_up_with_cognito/2.png)

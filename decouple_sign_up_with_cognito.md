@@ -73,4 +73,5 @@ Finally, let's test if everything works correctly by running:
 # npm run build
 ```
 You should see something like this:
+
 ![](assets/img/decouple_sign_up_with_cognito/1.png)

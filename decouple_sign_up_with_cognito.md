@@ -6,7 +6,7 @@ on my previous article available [here](cognito_introduction.md){:target="_blank
 The exercise has two parts, one being the client written using Javascript and the other being the server, an architecture built with CloudFormation. I'm going to try to keep the client as clean as possible and if you haven't heard of CloudFormation, this is a simple way of building infrastructure inside AWS using a templating system written using YAML or JSON (more info [here](https://aws.amazon.com/cloudformation/){:target="_blank"}). 
 
 ### Prepare the client
-Make sure you've got npm installed (https://www.npmjs.com/get-npm){:target="_blank"}, then go ahead and create a folder and inside it run ```npm init && npm install --save aws-sdk && npm install --save-dev json-loader webpack webpack-cli ```. 
+Make sure you've got npm installed (https://www.npmjs.com/get-npm){:target="_blank"}, then go ahead and create a folder and inside it run ``` npm init && npm install --save aws-sdk && npm install --save-dev json-loader webpack webpack-cli ```. 
 
 Once that's finished, create a file called `webpack.config.js` in the root folder and populate it with this:
 ```javascript

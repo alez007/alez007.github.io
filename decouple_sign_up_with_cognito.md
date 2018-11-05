@@ -61,3 +61,5 @@ At this point, webpack will be configured, so we need to add it as a script insi
 }
 
 ```
+
+We're almost there, we are going to use one js file to write our code, it's called `browser.js` and webpack needs to have it in order to compile the output js file that is going to be used by our `index.html` entry point. You can go ahead and create an empty file called `browser.js` (``` touch browser.js ```) and since we're at it, let's do the `index.html` too (``` touch index.html ```).

@@ -85,5 +85,9 @@ The schema looks like this:
 
 ![](assets/img/decouple_sign_up_with_cognito/2.png)
 
-First, we need to build it. After you login into your AWS Console, go to CloudFormation Management Console in your chosen region, click `Create Stack`, then `Upload a template to Amazon S3` and upload the following template: [decouple_sign_up_with_cognito.cloudformation]({{file name='assets/download/decouple_sign_up_with_cognito.cloudformation'}})
+First, we need to build it. After you login into your AWS Console, go to CloudFormation Management Console in your chosen region, click `Create Stack`, then `Upload a template to Amazon S3` and upload the following template <a download="assets/download/decouple_sign_up_with_cognito.cloudformation" href="assets/download/decouple_sign_up_with_cognito.cloudformation" title="ImageName">
+    <img alt="ImageName" src="assets/download/decouple_sign_up_with_cognito.cloudformation">
+</a>
+
+[decouple_sign_up_with_cognito.cloudformation]({{file name='assets/download/decouple_sign_up_with_cognito.cloudformation'}})
 

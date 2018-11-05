@@ -6,8 +6,10 @@ on my previous article available [here](cognito_introduction.md){:target="_blank
 The exercise has two parts, one being the client written using Javascript and the other being the server, an architecture built with CloudFormation. I'm going to try to keep the client as clean as possible and if you haven't heard of CloudFormation, this is a simple way of building infrastructure inside AWS using a templating system written using YAML or JSON (more info [here](https://aws.amazon.com/cloudformation/){:target="_blank"}). 
 
 ### Prepare the client
-Make sure you've got npm installed (https://www.npmjs.com/get-npm){:target="_blank"}, then go ahead and create a folder and inside it run ``` npm init && npm install --save aws-sdk && npm install --save-dev json-loader webpack webpack-cli ```. 
-
+Make sure you've got npm installed (https://www.npmjs.com/get-npm){:target="_blank"}, then go ahead and create a folder and inside it run:
+```
+# npm init && npm install --save aws-sdk && npm install --save-dev json-loader webpack webpack-cli 
+```
 Once that's finished, create a file called `webpack.config.js` in the root folder and populate it with this:
 ```javascript
 // Import path for resolving file paths
@@ -62,4 +64,13 @@ At this point, webpack will be configured, so we need to add it as a script insi
 
 ```
 
-We're almost there, we are going to use one js file to write our code, it's called `browser.js` and webpack needs to have it in order to compile the output js file that is going to be used by our `index.html` entry point. You can go ahead and create an empty file called `browser.js` (``` touch browser.js ```) and since we're at it, let's do the `index.html` too (``` touch index.html ```).
+We're almost there, we are going to use one js file to write our code, it's called `browser.js` and webpack needs to have it in order to compile the output js file that is going to be used by our `index.html` entry point. You can go ahead and create an empty file called `browser.js` and since we're at it, let's do the `index.html` too:
+``` 
+# touch browser.js && touch index.html 
+```
+Finally, let's test if everything works correctly by running:
+```
+# npm run build
+```
+You should see something like this:
+![](assets/img/decouple_sign_up_with_cognito/1.png)

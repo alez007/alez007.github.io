@@ -1,0 +1,325 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "UserPool": {
+            "Type": "AWS::Cognito::UserPool",
+            "Properties": {
+                "UserPoolName": "TestUserPool"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "efae662f-b995-4230-bba9-17c712ec90c5"
+                }
+            }
+        },
+        "IdentityPool": {
+            "Type": "AWS::Cognito::IdentityPool",
+            "Properties": {
+                "IdentityPoolName": "TestIdentityPool",
+                "AllowUnauthenticatedIdentities": true,
+                "CognitoIdentityProviders": [
+                    {
+                        "ClientId": {
+                            "Ref": "ClientApp"
+                        },
+                        "ServerSideTokenCheck": true,
+                        "ProviderName": {
+                            "Fn::GetAtt": [
+                                "UserPool",
+                                "ProviderName"
+                            ]
+                        }
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "4a10c75c-100c-437e-8ecc-3febfc887d79"
+                }
+            }
+        },
+        "ClientApp": {
+            "Type": "AWS::Cognito::UserPoolClient",
+            "Properties": {
+                "ClientName": "TestClientApp",
+                "GenerateSecret": false,
+                "UserPoolId": {
+                    "Ref": "UserPool"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "9bf05558-947c-4b1f-afaa-68e598e7a784"
+                }
+            }
+        },
+        "RoleAttachment": {
+            "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+            "Properties": {
+                "IdentityPoolId": {
+                    "Ref": "IdentityPool"
+                },
+                "Roles": {
+                    "authenticated": {
+                        "Fn::GetAtt": [
+                            "AuthenticatedRole",
+                            "Arn"
+                        ]
+                    },
+                    "unauthenticated": {
+                        "Fn::GetAtt": [
+                            "UnauthenticatedRole",
+                            "Arn"
+                        ]
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "88a6ac4a-c249-469f-b110-62e21ecca6d6"
+                }
+            }
+        },
+        "AuthenticatedRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                                "StringEquals": {
+                                    "cognito-identity.amazonaws.com:aud": {
+                                        "Ref": "IdentityPool"
+                                    }
+                                },
+                                "ForAnyValue:StringLike": {
+                                    "cognito-identity.amazonaws.com:amr": "authenticated"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Path": "/"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "25664a11-790b-423b-9bc6-b53e4d33512f"
+                }
+            }
+        },
+        "UnauthenticatedRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                                "StringEquals": {
+                                    "cognito-identity.amazonaws.com:aud": {
+                                        "Ref": "IdentityPool"
+                                    }
+                                },
+                                "ForAnyValue:StringLike": {
+                                    "cognito-identity.amazonaws.com:amr": "unauthenticated"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Path": "/"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "c6316539-bccd-45a3-b8c1-e3edb6cfa6b9"
+                }
+            }
+        },
+        "CognitoIdentityAuthenticatedPolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "mobileanalytics:PutEvents",
+                                "cognito-sync:*",
+                                "cognito-identity:*"
+                            ],
+                            "Resource": [
+                                "*"
+                            ]
+                        }
+                    ]
+                },
+                "PolicyName": "CognitoIdentityAuthenticatedPolicy",
+                "Roles": [
+                    {
+                        "Ref": "AuthenticatedRole"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "d685acb3-e32a-40e5-8904-ba42972a0f75"
+                }
+            }
+        },
+        "CognitoIdentityUnauthenticatedPolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "mobileanalytics:PutEvents",
+                                "cognito-sync:*"
+                            ],
+                            "Resource": [
+                                "*"
+                            ]
+                        }
+                    ]
+                },
+                "PolicyName": "CognitoIdentityUnauthenticatedPolicy",
+                "Roles": [
+                    {
+                        "Ref": "UnauthenticatedRole"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "c7369e00-7c03-4422-914b-7df2fb446e7f"
+                }
+            }
+        }
+    },
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "efae662f-b995-4230-bba9-17c712ec90c5": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 0,
+                    "y": 80
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "9bf05558-947c-4b1f-afaa-68e598e7a784": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 120,
+                    "y": 80
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "efae662f-b995-4230-bba9-17c712ec90c5"
+                ]
+            },
+            "4a10c75c-100c-437e-8ecc-3febfc887d79": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 60,
+                    "y": 210
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "c6316539-bccd-45a3-b8c1-e3edb6cfa6b9": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 320,
+                    "y": 280
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "c7369e00-7c03-4422-914b-7df2fb446e7f": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 440,
+                    "y": 280
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "c6316539-bccd-45a3-b8c1-e3edb6cfa6b9"
+                ]
+            },
+            "25664a11-790b-423b-9bc6-b53e4d33512f": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 320,
+                    "y": 160
+                },
+                "z": 1,
+                "embeds": []
+            },
+            "d685acb3-e32a-40e5-8904-ba42972a0f75": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 440,
+                    "y": 160
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "25664a11-790b-423b-9bc6-b53e4d33512f"
+                ]
+            },
+            "88a6ac4a-c249-469f-b110-62e21ecca6d6": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 230,
+                    "y": 210
+                },
+                "z": 1,
+                "embeds": [],
+                "isassociatedwith": [
+                    "4a10c75c-100c-437e-8ecc-3febfc887d79"
+                ]
+            }
+        }
+    }
+}

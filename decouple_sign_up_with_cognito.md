@@ -5,7 +5,7 @@ comments: true
 
 ## Decouple Sign Up With Cognito
 I've decided to start a new exercise. Let's presume we've already got a sign-up process in place, via an API or otherwise 
-and we decide to start using Cognito to handle all registrations. If you're unfamilia with Cognito, you can do a fast read
+and we decide to start using Cognito to handle all registrations. If you're unfamiliar with Cognito, you can do a fast read
 on my previous article available [here](cognito_introduction.md){:target="_blank"}.
 
 The exercise has two parts, one being the client written using Javascript and the other being the server, an architecture built with CloudFormation. I'm going to try to keep the client as clean as possible and if you haven't heard of CloudFormation, this is a simple way of building infrastructure inside AWS using a templating system written using YAML or JSON (more info [here](https://aws.amazon.com/cloudformation/){:target="_blank"}). 

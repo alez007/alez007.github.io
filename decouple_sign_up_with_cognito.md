@@ -13,7 +13,7 @@ The exercise has two parts, one being the client written using Javascript and th
 ### Prepare the client
 Make sure you've got npm installed (https://www.npmjs.com/get-npm){:target="_blank"}, then go ahead and create a folder and inside it run:
 ```
-# npm init && npm install --save aws-sdk && npm install --save-dev json-loader webpack webpack-cli 
+# npm init && npm install --save aws-sdk amazon-cognito-identity-js && npm install --save-dev json-loader webpack webpack-cli 
 ```
 Once that's finished, create a file called `webpack.config.js` in the root folder and populate it with this:
 ```javascript
@@ -96,4 +96,92 @@ Once the script has finished, go to `Cognito` and you'll see one User Pool calle
 
 At this point, we have all we need to start writing code inside our app and use the underlying architecture to sign up and authenticate users. 
 
+### The fun begins
+There are two scenarios that come to mind when I think about decoupling the sign-up process:
+- New users that register from this point onwards should register directly through the new freshly built system with CloudFormation, in which case we need a way to link those new users from User Pools to our internal application user ids
+- Already existent users will have to be migrated and therefore added to the User Pool and the way we're going to do that is allow them to login with Cognito even if we don't have them already in the User Pool and use a lambda trigger that will validate them agains the old authentication system (the one already used inside the app) then return instructions for the User Pool to create this user if everything went ok.
 
+The first point is pretty straight forward. In our `browser.js` file we add the following lines:
+- build the CognitoUserPool object:
+  ```javascript
+    var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+    var poolData = {
+        UserPoolId : 'your user pool id',
+        ClientId : 'your application client id'
+    };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  ```
+- register the user:
+  ```javascript
+    userPool.signUp('user@example.com', 'mypassword', [], null, (err, result) => {
+        if (err) {
+            console.log(err.message || JSON.stringify(err));
+            return;
+        }
+        console.log('User has been created');
+    });
+  ```
+- validate the user (after the previous step, user will receive an email with a validation code to confirm the account):
+  ```javascript
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+        Username: 'user@example.com',
+        Pool: userPool
+    });
+
+    cognitoUser.confirmRegistration(validateCode, true, function(err, result) {
+        if (err) {
+            console.log(err.message || JSON.stringify(err));
+            return;
+        }
+        console.log('SUCCESS');
+    });
+  ```
+- as an optional extra step, let's presume we need to verify if a user is already authenticated and if it's not, we authenticate:
+  ```javascript
+    var cognitoUser = userPool.getCurrentUser(); // get current user from local storage
+    if (cognitoUser != null) {
+        // get current session
+        cognitoUser.getSession((err, result) => {
+            if (err) {
+                console.log(err.message || JSON.stringify(err));
+                return;
+            }
+            // get some user information
+            cognitoUser.getUserAttributes(function(err, attributes) {
+                if (err) {
+                    console.log(err.message || JSON.stringify(err));
+                    return;
+                }
+                console.log(attributes);
+            });
+        });
+    } else {
+        // we authenticate the user
+        var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+            Username: email,
+            Pool: userPool
+        });
+
+        cognitoUser.authenticateUser(new AmazonCognitoIdentity.AuthenticationDetails({
+            Username: 'user@example.com',
+            Password: 'mypassword'
+        }), {
+            onSuccess: (result) => {
+                var accessToken = result.getAccessToken().getJwtToken();
+
+                cognitoUser.getUserAttributes(function(err, attributes) {
+                    if (err) {
+                        console.log(err.message || JSON.stringify(err));
+                        return;
+                    }
+                    
+                    console.log(attributes);
+                });
+
+            },
+            onFailure: (err) => {
+                console.log(err.message || JSON.stringify(err));
+            }
+        });
+    }
+  ```

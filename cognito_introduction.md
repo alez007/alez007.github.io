@@ -1,3 +1,8 @@
+---
+layout: default
+comments: true
+---
+
 ## AWS Cognito - Introduction
 
 Main aim of this article is to write about my understanding of AWS Cognito. Although this blog won't have comments section, I'm always reading my email so feel free to drop me one if you feel I've gone off the rails with this one.

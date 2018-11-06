@@ -96,4 +96,4 @@ Once the script has finished, go to `Cognito` and you'll see one User Pool calle
 
 At this point, we have all we need to start writing code inside our app and use the underlying architecture to sign up and authenticate users. 
 
-{% if page.comments %} {% include disqus.html %} {% endif %}
+

@@ -58,6 +58,9 @@
             "Properties": {
                 "ClientName": "TestClientApp",
                 "GenerateSecret": false,
+                "ExplicitAuthFlows": [
+                    "USER_PASSWORD_AUTH"
+                ],
                 "UserPoolId": {
                     "Ref": "UserPool"
                 },

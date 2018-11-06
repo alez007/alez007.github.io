@@ -98,11 +98,11 @@ At this point, we have all we need to start writing code inside our app and use 
 
 ### The fun begins
 There are two scenarios that come to mind when I think about decoupling the sign-up process:
-- New users that register from this point onwards should register directly through the new freshly built system with CloudFormation, in which case we need a way to link those new users from User Pools to our internal application user ids
-- Already existent users will have to be migrated and therefore added to the User Pool and the way we're going to do that is allow them to login with Cognito even if we don't have them already in the User Pool and use a lambda trigger that will validate them agains the old authentication system (the one already used inside the app) then return instructions for the User Pool to create this user if everything went ok.
+1. New users that register from this point onwards should register directly through the new freshly built system with CloudFormation, in which case we need a way to link those new users from User Pools to our internal application user ids
+2. Already existent users will have to be migrated and therefore added to the User Pool and the way we're going to do that is allow them to login with Cognito even if we don't have them already in the User Pool and use a lambda trigger that will validate them agains the old authentication system (the one already used inside the app) then return instructions for the User Pool to create this user if everything went ok.
 
 The first point is pretty straight forward. In our `browser.js` file we add the following lines:
-- build the CognitoUserPool object:
+* build the CognitoUserPool object:
   ```javascript
     var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
     var poolData = {
@@ -111,7 +111,7 @@ The first point is pretty straight forward. In our `browser.js` file we add the 
     };
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   ```
-- register the user:
+* register the user:
   ```javascript
     userPool.signUp('user@example.com', 'mypassword', [], null, (err, result) => {
         if (err) {
@@ -121,7 +121,7 @@ The first point is pretty straight forward. In our `browser.js` file we add the 
         console.log('User has been created');
     });
   ```
-- validate the user (after the previous step, user will receive an email with a validation code to confirm the account):
+* validate the user (after the previous step, user will receive an email with a validation code to confirm the account):
   ```javascript
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
         Username: 'user@example.com',
@@ -136,7 +136,7 @@ The first point is pretty straight forward. In our `browser.js` file we add the 
         console.log('SUCCESS');
     });
   ```
-- as an optional extra step, let's presume we need to verify if a user is already authenticated and if it's not, we authenticate:
+* as an optional extra step, let's presume we need to verify if a user is already authenticated and if it's not, we authenticate:
   ```javascript
     var cognitoUser = userPool.getCurrentUser(); // get current user from local storage
     if (cognitoUser != null) {

@@ -161,7 +161,8 @@ The first point is pretty straight forward. In our `browser.js` file we add the 
           Username: email,
           Pool: userPool
       });
-
+      
+      cognitoUser.setAuthenticationFlowType('USER_PASSWORD_AUTH'); // in order to trigger the migration, we need to use this flow
       cognitoUser.authenticateUser(new AmazonCognitoIdentity.AuthenticationDetails({
           Username: 'user@example.com',
           Password: 'mypassword'

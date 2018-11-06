@@ -183,3 +183,6 @@ The first point is pretty straight forward. In our `browser.js` file we add the 
       });
   }
   ```
+  
+### Finally
+I've put together a simple test repo using the above code that makes it easier to register, validate and login new users. You can check it out [here](https://github.com/alez007/decouple_sign_up_with_cognito){:target="_blank"}

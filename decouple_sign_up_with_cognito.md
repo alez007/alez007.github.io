@@ -1,3 +1,8 @@
+---
+layout: default
+comments: true
+---
+
 ## Decouple Sign Up With Cognito
 I've decided to start a new exercise. Let's presume we've already got a sign-up process in place, via an API or otherwise 
 and we decide to start using Cognito to handle all registrations. If you're unfamilia with Cognito, you can do a fast read
@@ -90,3 +95,5 @@ First, we need to build it. After you login into your AWS Console, go to CloudFo
 Once the script has finished, go to `Cognito` and you'll see one User Pool called 'TestUserPool' and one Identity Pool called 'TestIdentityPool'. 
 
 At this point, we have all we need to start writing code inside our app and use the underlying architecture to sign up and authenticate users. 
+
+{% if page.comments %} {% include disqus.html %} {% endif %}

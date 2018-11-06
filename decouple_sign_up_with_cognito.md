@@ -185,5 +185,36 @@ The first point is pretty straight forward. In our `browser.js` file we add the 
   }
   ```
   
+For the second point, we need to create a basic lambda function with basic role policies (CloudWatch logs access - this is the default role that AWS created automatically for new lambda functions). 
+
+This function will be triggered whenever a login with Cognito gets initiated and no user exists with that email. For the purpose of this exercise, I've created a Node.js 8.10 function with the following code:
+```javascript
+exports.handler = async (event) => {
+    if ( event.triggerSource == "UserMigration_Authentication" ) {
+        const { userName:email, request: { password } } = event;
+        
+        var user_is_authenticated = false;
+        
+        // this is where we need to authenticate with existing authentication mechanism with the email and password
+        // user_is_authenticated = my_custom_authentication(email, password); 
+        
+        if (user_is_authenticated)
+            // after the authentication is successful, we return the successful response
+            event.response.userAttributes = {
+                email,
+                email_verified: true
+            };
+            event.response.finalUserStatus = "CONFIRMED";
+            event.response.messageAction = "SUPPRESS";
+        }
+    }
+    return event;
+};
+```
+
+Once the function is saved and tested, we add it as a trigger for the `User Migration` event in Cognito User Pool configuration.
+
+![](assets/img/decouple_sign_up_with_cognito/3.png)
+
 ### Finally
 I've put together a simple test repo using the above code that makes it easier to register, validate and login new users. You can check it out [here](https://github.com/alez007/decouple_sign_up_with_cognito){:target="_blank"}

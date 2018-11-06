@@ -104,84 +104,82 @@ There are two scenarios that come to mind when I think about decoupling the sign
 The first point is pretty straight forward. In our `browser.js` file we add the following lines:
 * build the CognitoUserPool object:
   ```javascript
-    var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-    var poolData = {
-        UserPoolId : 'your user pool id',
-        ClientId : 'your application client id'
-    };
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+  var poolData = {
+      UserPoolId : 'your user pool id',
+      ClientId : 'your application client id'
+  };
+  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   ```
 * register the user:
   ```javascript
-    userPool.signUp('user@example.com', 'mypassword', [], null, (err, result) => {
-        if (err) {
-            console.log(err.message || JSON.stringify(err));
-            return;
-        }
-        console.log('User has been created');
-    });
+  userPool.signUp('user@example.com', 'mypassword', [], null, (err, result) => {
+      if (err) {
+          console.log(err.message || JSON.stringify(err));
+          return;
+      }
+      console.log('User has been created');
+  });
   ```
 * validate the user (after the previous step, user will receive an email with a validation code to confirm the account):
   ```javascript
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
-        Username: 'user@example.com',
-        Pool: userPool
-    });
+  var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+      Username: 'user@example.com',
+      Pool: userPool
+  });
 
-    cognitoUser.confirmRegistration(validateCode, true, function(err, result) {
-        if (err) {
-            console.log(err.message || JSON.stringify(err));
-            return;
-        }
-        console.log('SUCCESS');
-    });
+  cognitoUser.confirmRegistration(validateCode, true, function(err, result) {
+      if (err) {
+          console.log(err.message || JSON.stringify(err));
+          return;
+      }
+      console.log('SUCCESS');
+  });
   ```
 * as an optional extra step, let's presume we need to verify if a user is already authenticated and if it's not, we authenticate:
   ```javascript
-    var cognitoUser = userPool.getCurrentUser(); // get current user from local storage
-    if (cognitoUser != null) {
-        // get current session
-        cognitoUser.getSession((err, result) => {
-            if (err) {
-                console.log(err.message || JSON.stringify(err));
-                return;
-            }
-            // get some user information
-            cognitoUser.getUserAttributes(function(err, attributes) {
-                if (err) {
-                    console.log(err.message || JSON.stringify(err));
-                    return;
-                }
-                console.log(attributes);
-            });
-        });
-    } else {
-        // we authenticate the user
-        var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
-            Username: email,
-            Pool: userPool
-        });
+  var cognitoUser = userPool.getCurrentUser(); // get current user from local storage
+  if (cognitoUser != null) {
+      // get current session
+      cognitoUser.getSession((err, result) => {
+          if (err) {
+              console.log(err.message || JSON.stringify(err));
+              return;
+          }
+          // get some user information
+          cognitoUser.getUserAttributes(function(err, attributes) {
+              if (err) {
+                  console.log(err.message || JSON.stringify(err));
+                  return;
+              }
+              console.log(attributes);
+          });
+      });
+  } else {
+      // we authenticate the user
+      var cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+          Username: email,
+          Pool: userPool
+      });
 
-        cognitoUser.authenticateUser(new AmazonCognitoIdentity.AuthenticationDetails({
-            Username: 'user@example.com',
-            Password: 'mypassword'
-        }), {
-            onSuccess: (result) => {
-                var accessToken = result.getAccessToken().getJwtToken();
-
-                cognitoUser.getUserAttributes(function(err, attributes) {
-                    if (err) {
-                        console.log(err.message || JSON.stringify(err));
-                        return;
-                    }
+      cognitoUser.authenticateUser(new AmazonCognitoIdentity.AuthenticationDetails({
+          Username: 'user@example.com',
+          Password: 'mypassword'
+      }), {
+          onSuccess: (result) => {
+              var accessToken = result.getAccessToken().getJwtToken();
+              cognitoUser.getUserAttributes(function(err, attributes) {
+                  if (err) {
+                      console.log(err.message || JSON.stringify(err));
+                      return;
+                  }
                     
-                    console.log(attributes);
-                });
-
-            },
-            onFailure: (err) => {
-                console.log(err.message || JSON.stringify(err));
-            }
-        });
-    }
+                  console.log(attributes);
+              });
+          },
+          onFailure: (err) => {
+              console.log(err.message || JSON.stringify(err));
+          }
+      });
+  }
   ```

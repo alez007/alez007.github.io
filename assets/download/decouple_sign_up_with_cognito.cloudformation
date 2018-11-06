@@ -4,7 +4,22 @@
         "UserPool": {
             "Type": "AWS::Cognito::UserPool",
             "Properties": {
-                "UserPoolName": "TestUserPool"
+                "UserPoolName": "TestUserPool",
+                "AutoVerifiedAttributes": [
+                    "email"
+                ],
+                "UsernameAttributes": [
+                    "email"
+                ],
+                "Policies": {
+                    "PasswordPolicy": {
+                        "MinimumLength": 8,
+                        "RequireLowercase": true,
+                        "RequireNumbers": true,
+                        "RequireSymbols": false,
+                        "RequireUppercase": true
+                    }
+                }
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
@@ -45,7 +60,13 @@
                 "GenerateSecret": false,
                 "UserPoolId": {
                     "Ref": "UserPool"
-                }
+                },
+                "ReadAttributes": [
+                    "email"
+                ],
+                "WriteAttributes": [
+                    "email"
+                ]
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
@@ -218,8 +239,8 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 0,
-                    "y": 80
+                    "x": 210,
+                    "y": 90
                 },
                 "z": 1,
                 "embeds": []
@@ -231,7 +252,7 @@
                 },
                 "position": {
                     "x": 120,
-                    "y": 80
+                    "y": 90
                 },
                 "z": 1,
                 "embeds": [],
@@ -257,8 +278,8 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 320,
-                    "y": 280
+                    "x": 330,
+                    "y": 270
                 },
                 "z": 1,
                 "embeds": []
@@ -269,8 +290,8 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 440,
-                    "y": 280
+                    "x": 450,
+                    "y": 270
                 },
                 "z": 1,
                 "embeds": [],
@@ -284,8 +305,8 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 320,
-                    "y": 160
+                    "x": 330,
+                    "y": 150
                 },
                 "z": 1,
                 "embeds": []
@@ -296,8 +317,8 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 440,
-                    "y": 160
+                    "x": 450,
+                    "y": 150
                 },
                 "z": 1,
                 "embeds": [],
@@ -311,7 +332,7 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 230,
+                    "x": 240,
                     "y": 210
                 },
                 "z": 1,

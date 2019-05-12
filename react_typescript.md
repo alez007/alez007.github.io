@@ -76,7 +76,7 @@ npm install --save react react-dom @types/react @types/react-dom
 ```
 - `react` is the core React library
 - `react-dom` allows us to hook react into our DOM and contains methods like `render()`
-- @types packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
+- `@types` packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
  codebase, in this case the react packages; usually their extensions are '.d.ts' and they also help in not misusing or 
  misunderstanding libraries and IDE auto completion; as a general rule, if you're using a certain npm package and that 
  package doesn't have the declarations already, `@types/package-name` should be the other thing you need
@@ -87,7 +87,7 @@ At this point I think we've got all we need. Let's configure our project.
  
 I'm going to split this section in 3 parts: Typescript configuration, Webpack configuration and NPM configuration.
  
-#### Typescript configuration
+    #### Typescript configuration
  
 
 

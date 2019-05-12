@@ -84,7 +84,10 @@ npm install --save react react-dom @types/react @types/react-dom
  At this point I think we've got all we need. Let's configure our project.
  
  ### Project configuration
-   
+ I'm going to split this section in 3 parts: Typescript configuration, Webpack configuration and NPM configuration.
+ 
+ #### Typescript configuration
+ 
 
 
 

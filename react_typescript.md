@@ -59,7 +59,7 @@ We will install a few of them and I will explain what each of them does:
 ```
 npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader
 ```
--
+
  - `webpack` is the Webpack core library
  - `webpack-cli` is the cli executable for Webpack
  - `typescript` is the Typescript core library
@@ -72,13 +72,13 @@ npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-l
  - `ts-loader` allows Webpack to understand and map / pack .ts or .tsx files written with Typescript
  
  What else do we want ? We want React and Typescript:
- ```
+```
 npm install --save react react-dom @types/react @types/react-dom 
 ```
--
+
  - `react` is the core React library
  - `react-dom` allows us to hook react into our DOM and contains methods like `render()`
- - @types packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
+ - types packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
  codebase, in this case the react packages; usually their extensions are '.d.ts' and they also help in not misusing or 
  misunderstanding libraries and IDE auto completion; as a general rule, if you're using a certain npm package and that 
  package doesn't have the declarations already, `@types/package-name` should be the other thing you need

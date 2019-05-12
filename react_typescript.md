@@ -87,7 +87,35 @@ At this point I think we've got all we need. Let's configure our project.
  
 I'm going to split this section in 3 parts: Typescript configuration, Webpack configuration and NPM configuration.
  
-    #### Typescript configuration
+#### Typescript configuration
+Typescript reads its configuration from a file called `tsconfig.json`. Below is a simple config, enough to start a project,
+but if you're curious you can see all options [here](https://www.typescriptlang.org/docs/handbook/compiler-options.html){:target="_blank"}.
+```json
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "strict": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
+}
+```
+In big lines, the configuration file tells TypeScript the following: 
+* everything that gets compiled, needs to be saved in 'outDir'
+* expect modules to be written using ES6
+* target compilation output to be compatible with ES5
+* expect react templating system in .tsx files ([find out more](https://www.typescriptlang.org/docs/handbook/jsx.html){:target="_blank"})
+* enable all strict type checking options in the code
+* compile all that it finds in ./src folder
+* exclude ./node_modules from compilation
  
 
 

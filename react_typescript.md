@@ -116,7 +116,64 @@ In big lines, the configuration file tells TypeScript the following:
 * enable all strict type checking options in the code
 * compile all that it finds in ./src folder
 * exclude ./node_modules from compilation
- 
+
+#### Webpack configuration
+Webpack configuration file is `webpack.conf.js`, let's create this file and add the following code:
+```javascript
+module.exports =(env) => {
+ return require(`./webpack.${env}.js`)
+}
+```
+What the above code does is read the --env cli parameter from webpack and require the necessary files based on it.
+For example, if we run `webpack --env dev` then it'll include `webpack.dev.js` configuration file. Reason we do this is,
+based on the environment we run the project on, we will have different bundling configuration files that will instruct 
+webpack to do different things.
+
+Webpack DEV configuration looks like this:
+```javascript
+const path = require("path");
+const webpack = require("webpack");
+
+module.exports = {
+    entry: "./src/index.tsx",
+    mode: "development",
+    module: {
+        rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                use: 'ts-loader',
+                exclude: /(node_modules)/
+            },
+            {
+                test:/\.(s*)css$/,
+                use:['style-loader','css-loader', 'sass-loader']
+            }
+        ]
+    },
+    resolve: { extensions: [".tsx", ".ts"] },
+    output: {
+        path: path.resolve(__dirname, "dist/"),
+        publicPath: "/dist/",
+        filename: "bundle.js"
+    },
+    devServer: {
+        contentBase: path.join(__dirname, "public/"),
+        port: 3000,
+        publicPath: "http://localhost:3000/dist/",
+        hot: true
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ]
+};
+```
+In big lines, it does the following:
+* reads `index.tsx` as an entry script to build the dependency map
+* uses `ts-loader` for transpiling (some kind of a fancy word for source-to-source compiling) all ts and tsx files
+* uses `style-loader, css-loader, sass-loader` for css, scss imports
+* outputs the bundle in `/dist/bundle.js` file that we will include in out `index.html`
+* configures the webpack-dev-server to find `index.html` inside `public` folder and hot reload every change it detects
+in the code files
 
 
 

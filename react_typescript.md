@@ -59,29 +59,35 @@ We will install a few of them and I will explain what each of them does:
 ```
 npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader
 ```
-
- - `webpack` is the Webpack core library
- - `webpack-cli` is the cli executable for Webpack
- - `typescript` is the Typescript core library
- - [webpack-dev-server](https://webpack.js.org/configuration/dev-server/){:target="_blank"} is going to be used in our 
+- `webpack` is the Webpack core library
+- `webpack-cli` is the cli executable for Webpack
+- `typescript` is the Typescript core library
+- [webpack-dev-server](https://webpack.js.org/configuration/dev-server/){:target="_blank"} is going to be used in our 
  local development, it fires up a local web server with hot reload that automatically refreshes the page once we modify 
  something in our code
- - `style-loader css-loader sass-loader` are style loaders, the first one knows how to inject <style> tags in the DOM,
+- `style-loader css-loader sass-loader` are style loaders, the first one knows how to inject <style> tags in the DOM,
  second one allows us to import css files in the code like we do with any other JS file, the third one is like the second 
  one but with sass / scss files
- - `ts-loader` allows Webpack to understand and map / pack .ts or .tsx files written with Typescript
+- `ts-loader` allows Webpack to understand and map / pack .ts or .tsx files written with Typescript
  
  What else do we want ? We want React and Typescript:
 ```
 npm install --save react react-dom @types/react @types/react-dom 
 ```
-
+- `react` is the core React library
+- `react-dom` allows us to hook react into our DOM and contains methods like `render()`
+- @types packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
+ codebase, in this case the react packages; usually their extensions are '.d.ts' and they also help in not misusing or 
+ misunderstanding libraries and IDE auto completion; as a general rule, if you're using a certain npm package and that 
+ package doesn't have the declarations already, `@types/package-name` should be the other thing you need
  
- ### Project configuration
+At this point I think we've got all we need. Let's configure our project.
  
- I'm going to split this section in 3 parts: Typescript configuration, Webpack configuration and NPM configuration.
+### Project configuration
  
- #### Typescript configuration
+I'm going to split this section in 3 parts: Typescript configuration, Webpack configuration and NPM configuration.
+ 
+#### Typescript configuration
  
 
 

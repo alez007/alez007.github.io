@@ -43,22 +43,16 @@ Very simply put, it does two things:
 Make sure you've got [npm](https://www.npmjs.com/get-npm){:target="_blank"} installed, then go ahead and create a 
 folder and inside it run:
 ```$bash
-npm init
+npm init && mkdir src
 ```
-For the purpose of this project, we need to create two folders, one called `public` and the other `src`. 
-```$bash
-mkdir public && mkdir src
-```
-Folder `public`
-will contain static assets like css files and images, plus any html files that are being served to the user, e.g. 
-`index.html`. Folder `src` will be our working folder, we will write code here and every file created here will be 
+This will initialise our npm project and also create a folder `src` that will contain all our source code. 
+Folder `src` will be our working folder, we will write code here and every file created here will be 
 processed in one way or another to generate the project's final state.
 
 At this point, we should make sure we configure our module bundler. Webpack uses `loaders` as helpers to do its job. 
 We will install a few of them and I will explain what each of them does:
 ```
-npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader
-html-loader clean-webpack-plugin html-webpack-plugin
+npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader html-loader clean-webpack-plugin html-webpack-plugin
 ```
 - `webpack` is the Webpack core library
 - `webpack-cli` is the cli executable for Webpack
@@ -75,18 +69,7 @@ html-loader clean-webpack-plugin html-webpack-plugin
 - `html-webpack-plugin` is a nice Webpack plugin that will clone out index.html file from ./src folder and put it inside
 the distribution folder after each build
  
- What else do we want ? We want React and Typescript:
-```
-npm install --save react react-dom @types/react @types/react-dom 
-```
-- `react` is the core React library
-- `react-dom` allows us to hook react into our DOM and contains methods like `render()`
-- `@types` packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
- codebase, in this case the react packages; usually their extensions are '.d.ts' and they also help in not misusing or 
- misunderstanding libraries and IDE auto completion; as a general rule, if you're using a certain npm package and that 
- package doesn't have the declarations already, `@types/package-name` should be the other thing you need
- 
-At this point I think we've got all we need. Let's configure our project.
+I think we've got all we need for now. Let's configure our project.
  
 ### Project configuration
  
@@ -168,10 +151,10 @@ module.exports = {
             }
         ]
     },
-    resolve: { extensions: [".tsx", ".ts"] },
+    resolve: { extensions: [".tsx", ".ts", ".js", ".jsx"] },
     output: {
         path: path.resolve(__dirname, "dist/"),
-        publicPath: "/dist/",
+        publicPath: "/",
         filename: "bundle.js"
     },
     plugins: [
@@ -195,6 +178,7 @@ In `webpack.dev.js` we merge the common configuration and add some other configu
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require("webpack");
+const path = require("path");
 
 module.exports = merge(common, {
     mode: "development",
@@ -221,4 +205,79 @@ module.exports = merge(common, {
     mode: "production"
 });
 ```
+Ok, I think we're done with Webpack, let's move on to the last bit, NPM configuration.
 
+#### NPM Configuration
+The hard part is over, we only need to create a few scripts in package.json so we can easily start a webpack dev server,
+build a dev environment and a production one. Under the "scripts" key in your package.json, let's add the following lines:
+```json
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development --env dev",
+    "build:dev": "webpack --env dev",
+    "build:prod": "webpack --env production"
+}
+```
+And there we have it, three commands to do the following:
+* `npm start` will start our working dev server that will be served on http://localhost:3000
+* `npm run build:dev` will build a fully working development project inside `dist` folder
+* `bpm run build:prod` will build a fully working production code inside the `dist` folder 
+
+### Did I mention React ? 
+And we still haven't written any piece of code, have we ? Let's install React:
+```
+npm install --save react react-dom @types/react @types/react-dom 
+```
+- `react` is the core React library
+- `react-dom` allows us to hook react into our DOM and contains methods like `render()`
+- `@types` packages are in fact declaration files; Typescript uses those to understand the structure of a given library 
+ codebase, in this case the react packages; usually their extensions are '.d.ts' and they also help in not misusing or 
+ misunderstanding libraries and IDE auto completion; as a general rule, if you're using a certain npm package and that 
+ package doesn't have the declarations already, `@types/package-name` should be the other thing you need
+
+We will work in the `src` folder, therefore let's create a simple application there:
+* under `src/index.html`, let's add this code:
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>React Starter</title>
+</head>
+
+<body>
+<div id="root"></div>
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+</body>
+```
+* under `src/index.tsx`, let's add:
+```typescript
+import React from "react";
+import ReactDOM from "react-dom";
+
+import App from "./App";
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+* under `src/App.tsx`, let's add:
+```typescript
+import React, { Component} from "react";
+
+class App extends Component{
+    render(){
+        return(
+            <div className="App">
+                <h1> Yo! </h1>
+            </div>
+        );
+    }
+}
+
+export default App;
+```
+
+Fire it up with `npm start`, go to `http://localhost:300` and if you don't see your app on your page then you're lying 
+to me :stuck_out_tongue_winking_eye:.

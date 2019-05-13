@@ -265,6 +265,7 @@ import App from "./App";
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 * under `src/App.tsx`, let's add:
+
 ```typescript
 import React, { Component} from "react";
 

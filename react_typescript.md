@@ -58,6 +58,7 @@ At this point, we should make sure we configure our module bundler. Webpack uses
 We will install a few of them and I will explain what each of them does:
 ```
 npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader
+html-loader clean-webpack-plugin html-webpack-plugin
 ```
 - `webpack` is the Webpack core library
 - `webpack-cli` is the cli executable for Webpack
@@ -69,6 +70,10 @@ npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-l
  second one allows us to import css files in the code like we do with any other JS file, the third one is like the second 
  one but with sass / scss files
 - `ts-loader` allows Webpack to understand and map / pack .ts or .tsx files written with Typescript
+- `html-loader` allows Webpack to manipulate .html files
+- `clean-webpack-plugin` it's a Webpack plugin that will allow Webpack to clean the build folder before any subsequent build
+- `html-webpack-plugin` is a nice Webpack plugin that will clone out index.html file from ./src folder and put it inside
+the distribution folder after each build
  
  What else do we want ? We want React and Typescript:
 ```
@@ -118,7 +123,7 @@ In big lines, the configuration file tells TypeScript the following:
 * exclude ./node_modules from compilation
 
 #### Webpack configuration
-Webpack configuration file is `webpack.conf.js`, let's create this file and add the following code:
+Webpack configuration file is `webpack.config.js`, let's create this file and add the following code:
 ```javascript
 module.exports =(env) => {
  return require(`./webpack.${env}.js`)
@@ -129,14 +134,23 @@ For example, if we run `webpack --env dev` then it'll include `webpack.dev.js` c
 based on the environment we run the project on, we will have different bundling configuration files that will instruct 
 webpack to do different things.
 
-Webpack DEV configuration looks like this:
+Now, you might think that some things from one config file, might also be needed into the other. How do we respect the
+DRY principle in this case ? Well, for this, we will use a package called `webpack-merge`. Let's install it first:
+```
+npm install --save-dev webpack-merge
+```
+Now, we will create a file called `webpack.common.js` which will include common configuration options that will be applied
+throughout all other environment configurations, then we'll make sure we merge this file inside every environment
+configuration file.
+
+Here's what we have in `webpack.common.js`:
 ```javascript
 const path = require("path");
-const webpack = require("webpack");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
-    mode: "development",
     module: {
         rules: [
             {
@@ -147,6 +161,10 @@ module.exports = {
             {
                 test:/\.(s*)css$/,
                 use:['style-loader','css-loader', 'sass-loader']
+            },
+            {
+                test: /\.html$/,
+                use: 'html-loader'
             }
         ]
     },
@@ -156,14 +174,12 @@ module.exports = {
         publicPath: "/dist/",
         filename: "bundle.js"
     },
-    devServer: {
-        contentBase: path.join(__dirname, "public/"),
-        port: 3000,
-        publicPath: "http://localhost:3000/dist/",
-        hot: true
-    },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'src/index.html'
+        })        
     ]
 };
 ```
@@ -171,9 +187,38 @@ In big lines, it does the following:
 * reads `index.tsx` as an entry script to build the dependency map
 * uses `ts-loader` for transpiling (some kind of a fancy word for source-to-source compiling) all ts and tsx files
 * uses `style-loader, css-loader, sass-loader` for css, scss imports
-* outputs the bundle in `/dist/bundle.js` file that we will include in out `index.html`
-* configures the webpack-dev-server to find `index.html` inside `public` folder and hot reload every change it detects
-in the code files
+* uses `html-loade` for html files manipulation
+* outputs the bundle in `/dist/bundle.js` file that will be included in our `src/index.html`
 
+In `webpack.dev.js` we merge the common configuration and add some other configurations needed only for DEV:
+```javascript
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+const webpack = require("webpack");
 
+module.exports = merge(common, {
+    mode: "development",
+    devServer: {
+        contentBase: path.join(__dirname, "dist/"),
+        port: 3000,
+        publicPath: "http://localhost:3000/dist/",
+        hot: true
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ]
+});
+```
+In addition to what common config does, this one only configures the webpack-dev-server to find `index.html` inside
+`dist` folder and hot reload every change it detects in the code files.
+
+The `webpack.production.js` configuration file looks like this:
+```javascript
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+    mode: "production"
+});
+```
 

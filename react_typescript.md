@@ -237,6 +237,7 @@ npm install --save react react-dom @types/react @types/react-dom
 
 We will work in the `src` folder, therefore let's create a simple application there:
 * under `src/index.html`, let's add this code:
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -255,6 +256,7 @@ We will work in the `src` folder, therefore let's create a simple application th
 </body>
 ```
 * under `src/index.tsx`, let's add:
+
 ```typescript
 import React from "react";
 import ReactDOM from "react-dom";

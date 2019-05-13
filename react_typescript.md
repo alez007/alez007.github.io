@@ -282,7 +282,7 @@ class App extends Component{
 export default App;
 ```
 
-Fire it up with `npm start`, go to `http://localhost:300` and if you don't see your app on your page then you're lying 
+Fire it up with `npm start`, go to `http://localhost:3000` and if you don't see your app on your page then you're lying 
 to me :stuck_out_tongue_winking_eye:.
 
 ### Conclusions

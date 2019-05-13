@@ -289,5 +289,7 @@ to me :stuck_out_tongue_winking_eye:.
 Ok, I know, this has been a long one, but hey, at least now we're one step closer towards understanding all that magic
 behind projects like create-react-app and the like. Now, we could improve this, of course. For one, we miss uglifier for 
 our js code, we haven't used minifiers for our css code, but I will let you check it out in [Webpack Guides](https://webpack.js.org/guides){:target="_blank"}.
+Also, Webpack configuration files are all over the place, we can structure them in a separate folder. Tests have not even been
+mentioned and that might be the topic for a full new article.
 
 There is though one aspect that we should discuss, it's the elephant called [Babel](https://babeljs.io/){:target="_blank"}.  

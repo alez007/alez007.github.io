@@ -185,7 +185,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.join(__dirname, "dist/"),
         port: 3000,
-        publicPath: "http://localhost:3000/dist/",
+        publicPath: "http://localhost:3000/",
         hot: true
     },
     plugins: [
@@ -284,3 +284,10 @@ export default App;
 
 Fire it up with `npm start`, go to `http://localhost:300` and if you don't see your app on your page then you're lying 
 to me :stuck_out_tongue_winking_eye:.
+
+### Conclusions
+Ok, I know, this has been a long one, but hey, at least now we're one step closer towards understanding all that magic
+behind projects like create-react-app and the like. Now, we could improve this, of course. For one, we miss uglifier for 
+our js code, we haven't used minifiers for our css code, but I will let you check it out in [Webpack Guides](https://webpack.js.org/guides){:target="_blank"}.
+
+There is though one aspect that we should discuss, it's the elephant called [Babel](https://babeljs.io/){:target="_blank"}.  

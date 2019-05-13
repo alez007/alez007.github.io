@@ -14,4 +14,6 @@ This is about me, yes, about me trying to see whether I have the patience to wri
 
 [Decouple existent sign-up with Cognito - Exercise](decouple_sign_up_with_cognito.md)
 
+[React with Typescript from scratch](react_typescript.md)
+
 

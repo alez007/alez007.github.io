@@ -52,7 +52,7 @@ processed in one way or another to generate the project's final state.
 At this point, we should make sure we configure our module bundler. Webpack uses `loaders` as helpers to do its job. 
 We will install a few of them and I will explain what each of them does:
 ```
-npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader html-loader clean-webpack-plugin html-webpack-plugin
+npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-loader css-loader sass-loader ts-loader html-loader url-loader file-loader clean-webpack-plugin html-webpack-plugin 
 ```
 - `webpack` is the Webpack core library
 - `webpack-cli` is the cli executable for Webpack
@@ -65,6 +65,8 @@ npm install --save-dev webpack webpack-cli typescript webpack-dev-server style-l
  one but with sass / scss files
 - `ts-loader` allows Webpack to understand and map / pack .ts or .tsx files written with Typescript
 - `html-loader` allows Webpack to manipulate .html files
+- `url-loader` allows Webpack to transform small size files into base64 URIs, this is useful for images and fonts
+- `file-loader` is going to be used as a fallback to `url-loader` when the files are larger than usual and this loader will make sure that when we use `import` for images or files, these get transformed into proper URLs in the code and also get exported to the output folder
 - `clean-webpack-plugin` it's a Webpack plugin that will allow Webpack to clean the build folder before any subsequent build
 - `html-webpack-plugin` is a nice Webpack plugin that will clone out index.html file from ./src folder and put it inside
 the distribution folder after each build
@@ -148,6 +150,17 @@ module.exports = {
             {
                 test: /\.html$/,
                 use: 'html-loader'
+            },
+            {
+                test: /\.(png|jpg|ttf|)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }
+                ]
             }
         ]
     },

@@ -129,7 +129,7 @@ configuration file.
 Here's what we have in `webpack.common.js`:
 ```javascript
 const path = require("path");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {

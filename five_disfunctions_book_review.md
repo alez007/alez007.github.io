@@ -1,0 +1,90 @@
+---
+layout: default
+comments: true
+---
+
+## 5 Disfunctions of a Team by Patrick Lencionni - Book Review
+
+### Intro
+No need for too much introduction, book can be found on Audible and any other store. It's got a fair amount of reviews
+but make sure you never take any book too literally, life is more complicated than that. 
+
+### Review
+#### Absence of Trust
+**What's the definition of trust in the context of building a team?**
+
+It's not easy to nurture trust because in the course of their
+lifetime, people are being pushed towards challenging one
+another, competing, therefore this behaviour might be hard to
+accept initially. 
+
+**What should happen?**
+* team members should have confidence that their peer’s intentions
+   are good and there’s no reason to be protective of careful
+   around the group
+* team members must learn to be vulnerable with one
+   another and be confident that their vulnerability is not going to
+   be used against them
+   
+**What are some vulnerabilities?**
+* professional weaknesses or skill deficiencies
+* interpersonal problems
+* mistakes and will to requests for help
+
+If people are trustful in their team members, they can then
+concentrate their energy into simply doing the job at hand rather
+than being political with one another.
+
+**What are some tools to help us build trust?**
+* **Personal experiences exercise**: answering questions about
+  ourselves e.g. siblings, personal hobbies, best job, worst job -
+  this adds personal level to our relationship (time required 1h)
+* **Team effectiveness exercise**: team members to identify the
+  single most important attribute that each of the other members
+  can bring to the team and also the single most important
+  attribute they need to improve upon; we focus on one person at
+  a time, starting with the team leader (time required 1h)
+* **Myers Briggs type indicator (MBTI)**: it’s good for providing the
+  best indicators about each one’s personalities and is not
+  judgemental, no type is better than another; it’s based on
+  research and members take active roles into identifying their
+  own types (time required 4h)
+* **360 Feedback**
+
+**Connection to dysfunction 2 (Fear of conflict)**:  by building trust,
+team makes conflict possible; members know they are not going to be
+punished by participating in discussions and debates
+
+#### Fear of conflict
+It’s important that team members to believe that conflict is necessary.
+
+**Definition**
+* in the context of the team this is related to ideological conflict
+  and not mean-spirited hurtful one; it can have passion but it
+  cannot be mistaken with discord or quarrel; members emerge
+  from this conflict with no collateral damage and with eagerness
+  to take on the next important issue
+* healthy conflict is a time saver because members do postpone
+  discussions and take action faster
+  
+**Tools to help us build constructive conflict**:
+* **miner of conflict**: 
+    * in the meeting at least one member
+      needs to become the miner of conflict, the person who
+      will try to be complete the objective and stay with the conflict
+      until it is resolved
+    * the miner of conflict needs to understand when team
+      members are becoming uncomfortable with the level of
+      discord and remind them that this discussion is necessary
+* **Thomas Kilmann conflict mode instrument (TKI)**: allows
+members to understand their natural inclination towards conflict
+and allows them to easily understand each other
+
+**Connection to dysfunction 3 (Lack of commitment)**:  by engaging in
+productive conflict, a team can commit and buy into a decision knowing
+that the decision has benefited from all their ideas
+
+#### Lack of Commitment
+
+
+ 

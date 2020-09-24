@@ -117,5 +117,46 @@ we have a contingency plan and communicate it
 In order for us to call on each other actions, we need to have a
 clear definition of what we need to do.
 
+#### 4. Avoidance of accountability
+**Definition**:
+- \- Willingness of the team members to ‘enter the danger’ and keep
+ourselves accountable when we do not perform
+- \- Usually people don’t want to do this in order to not break
+     relationship with the team member but in fact, they do just that
+     by creating stress and frustration or resentment;
+- \- Great teams improve their relationships by keeping themselves
+     accountable to one another; this means each member respects
+     the other by having great expectations from their colleague
+- \- Peer pressure is one of the best tools that motivates people to
+     improve their performance
+     
+**Tools to help build accountability**:
+- \- **Publication of goals and standards**: clarify publicly what team
+       needs to achieve, who needs to deliver what and how we
+       measure success
+- \- **Simple and regular progress reviews**: intermediary
+     discussions about how the task is going and members should be
+     communicating with one another in an intermediate state of the
+     task
 
+**Connection to dysfunction 5 (Inattention to results)**:
+If team members are not being kept accountable for their
+actions, they’re more likely to turn their attention to their own
+needs; it’s an invitation to care more about their results than the
+actual team results
+
+#### 5. Inattention to results
+**Definition**:
+- \- The tendency of the team members to care for something other
+     than the team or its results
+- \- Results are not limited to financial ones (e.g. profit), this results
+     is referred to outcome based performance
+- \- Ultimately any results that the team does, drives profit
+- \- A functional team must make the results of the team more
+     important that the individual results of each member
+     
+**Tools to help build attention to results**:
+- \- Making team results clear and reward only the actions that
+     contribute to those results
+- \- Works hand in hand with keeping ourselves accountable
  
